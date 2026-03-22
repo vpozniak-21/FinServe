@@ -18,9 +18,8 @@ def handle_lead():
 
     response = requests.post(MAKE_WEBHOOK_URL, json=data)
     return jsonify({"status": "success"}), 200
-
-if __name__ == '__main__':
+#if __name__ == '__main__':
     # Хостинг передаст порт в переменной PORT, если нет — используем 5000
-    port = int(os.environ.get("PORT", 5000))
+   # port = int(os.environ.get("PORT", 5000))
     # В облаке обязательно ставим host='0.0.0.0'
-    app.run(host='0.0.0.0', port=port)
+   # app.run(host='0.0.0.0', port=port)
