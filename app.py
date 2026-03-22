@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-import requests
+import requests, os
 
 app = Flask(__name__)
 
@@ -20,4 +20,7 @@ def handle_lead():
     return jsonify({"status": "success"}), 200
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Хостинг передаст порт в переменной PORT, если нет — используем 5000
+    port = int(os.environ.get("PORT", 5000))
+    # В облаке обязательно ставим host='0.0.0.0'
+    app.run(host='0.0.0.0', port=port)
