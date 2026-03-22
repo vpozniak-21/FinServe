@@ -1,0 +1,201 @@
+:root {
+	--primary-blue: #1a2a6c;
+	--citi-yellow: #ffcc00;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+	background-color: #f7f7f7;
+	margin: 0;
+	color: #333;
+}
+
+/* --- ВЕРХНЯЯ ЧАСТЬ (HERO SECTION) --- */
+.hero {
+	background: white;
+	padding: 0 10%;
+	/* Remove vertical padding, we'll use height instead */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	text-align: left;
+
+	/* This is the magic line: */
+	height: 100vh;
+	/* 100% of the Viewport Height */
+
+	box-sizing: border-box;
+	border-bottom: 1px solid var(--border-blue);
+}
+
+.hero-content {
+	max-width: 600px;
+}
+
+.hero h1 {
+	font-size: 48px;
+	color: var(--primary-blue);
+	margin: 0 0 25px 0;
+	line-height: 1.1;
+}
+
+.hero p {
+	font-size: 18px;
+	color: #6666;
+	line-height: 1.6;
+	margin-bottom: 35px;
+}
+
+.btn-choose {
+	background-color: var(--citi-yellow);
+	color: var(--primary-blue);
+	border: none;
+	padding: 15px 35px;
+	border-radius: 30px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.btn-choose:hover {
+	background-color: #e6b800;
+}
+
+/* --- СЕКЦИЯ С КАРТОЧКАМИ --- */
+.offers-section {
+	min-height: 100vh;
+	/* This also takes up a full screen */
+	padding: 100px 0;
+	text-align: center;
+	display: flex;
+	/* Added this to help center the cards vertically */
+	flex-direction: column;
+	justify-content: center;
+	box-sizing: border-box;
+}
+
+.offers-section h2 {
+	margin-bottom: 50px;
+	/* Space between title and cards */
+	text-align: center;
+	font-size: 32px;
+	color: var(--primary-blue);
+}
+
+.card-container {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+	flex-wrap: wrap;
+	padding: 0 20px;
+}
+
+.card {
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+	padding: 40px;
+	width: 320px;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+}
+
+.card h3 {
+	font-size: 24px;
+	color: var(--primary-blue);
+	margin-bottom: 15px;
+}
+
+.card p.desc {
+	color: #666;
+	font-size: 15px;
+	margin-bottom: 25px;
+	min-height: 45px;
+}
+
+.card ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 0 30px 0;
+	text-align: left;
+}
+
+.card li {
+	font-size: 15px;
+	color: #444;
+	margin-bottom: 12px;
+	padding-left: 20px;
+	position: relative;
+}
+
+.card li::before {
+	content: "•";
+	color: var(--citi-yellow);
+	position: absolute;
+	left: 0;
+	font-size: 22px;
+	line-height: 0.8;
+}
+
+.btn-apply {
+	background-color: var(--citi-yellow);
+	color: var(--primary-blue);
+	border: none;
+	padding: 14px 0;
+	border-radius: 30px;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	width: 180px;
+	align-self: center;
+	transition: 0.2s;
+}
+
+/* --- МОДАЛЬНОЕ ОКНО --- */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(4px);
+}
+
+.modal-content {
+	background: white;
+	margin: 8% auto;
+	padding: 40px;
+	width: 380px;
+	border-radius: 24px;
+	position: relative;
+	text-align: left;
+}
+
+.close-modal {
+	position: absolute;
+	right: 25px;
+	top: 20px;
+	font-size: 28px;
+	cursor: pointer;
+	color: #aaa;
+}
+
+.modal-content input {
+	width: 100%;
+	padding: 12px;
+	margin: 10px 0 20px;
+	border: 1px solid #ddd;
+	border-radius: 10px;
+	box-sizing: border-box;
+}
+
+#status-msg {
+	text-align: center;
+	margin-top: 15px;
+	font-weight: bold;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>FinServe | Financial Solutions Tailored to You</title>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>FinServe | Financial Solutions</title>
+		<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+	</head>
+</head>
+
+<body>
+
+	<div class="hero">
+		<div class="hero-content">
+			<h1>Financial Solutions Tailored to You</h1>
+			<p>From strategic business expansion to personal milestones, FinServe provides the capital you need with the speed you
+			deserve</p>
+			<button class="btn-choose"
+				onclick="document.getElementById('offers').scrollIntoView({behavior: 'smooth'})">Choose offer</button>
+		</div>
+		<div class="hero-image">
+			<img src="https://www.tegfcu.com/wp-content/uploads/2021/05/an-ariel-view-of-a-stressed-out-man-holding-credit-cards-next-to-a-table-of-bills.jpg" alt="FinServe"
+				style="width: 450px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); object-fit: cover;">
+		</div>
+	</div>
+
+	<div class="offers-section" id="offers">
+		<h2>Additional funds for you</h2>
+		<div class="card-container">
+			<div class="card">
+				<h3>SME Growth Loan</h3>
+				<p class="desc">Empower your business, make the best credit decisions.</p>
+				<ul>
+					<li>Amount up to $250,000</li>
+					<li>Decision in 60 seconds</li>
+					<li>EIR 8.5% p.a.</li>
+				</ul>
+				<button class="btn-apply" onclick="openForm('SME_LOAN', 'SME Growth Loan')">Apply Online</button>
+			</div>
+
+			<div class="card">
+				<h3>Personal Credit</h3>
+				<p class="desc">Flexible funds for your everyday life and dreams.</p>
+				<ul>
+					<li>Online credit verification</li>
+					<li>Instant card disbursement</li>
+					<li>EIR 12.9% p.a.</li>
+				</ul>
+				<button class="btn-apply" onclick="openForm('RETAIL_LOAN', 'Personal Credit')">Apply Online</button>
+			</div>
+		</div>
+	</div>
+
+	<div id="appModal" class="modal">
+		<div class="modal-content">
+			<span class="close-modal" onclick="closeForm()">&times;</span>
+			<h3 id="modalTitle">Application</h3>
+			<form id="loanForm">
+				<input type="hidden" id="eType">
+				<label>Full Name</label>
+				<input type="text" id="name" placeholder="John Doe" required>
+				<label>Email</label>
+				<input type="email" id="email" placeholder="john@example.com" required>
+				<label>Amount ($)</label>
+				<input type="number" id="amount" placeholder="50000" required>
+				<button type="submit" class="btn-apply" style="width: 100%;" id="subBtn">Send Application</button>
+			</form>
+			<div id="status-msg"></div>
+		</div>
+	</div>
+
+	<script>
+		let curCat = "";
+		function openForm(type, title) {
+			document.getElementById('appModal').style.display = 'block';
+			document.getElementById('modalTitle').innerText = title;
+			document.getElementById('eType').value = type;
+			curCat = title;
+		}
+		function closeForm() {
+			document.getElementById('appModal').style.display = 'none';
+			document.getElementById('loanForm').reset();
+			document.getElementById('status-msg').innerText = "";
+		}
+		document.getElementById('loanForm').addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const btn = document.getElementById('subBtn');
+			btn.innerText = "Sending..."; btn.disabled = true;
+
+			const data = {
+				name: document.getElementById('name').value,
+				email: document.getElementById('email').value,
+				amount: document.getElementById('amount').value,
+				event_type: document.getElementById('eType').value,
+				category: curCat
+			};
+
+			try {
+				const response = await fetch('/api/lead', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(data)
+				});
+				if (response.ok) {
+					document.getElementById('status-msg').innerHTML = "✅ Sent! We are processing your request.";
+					setTimeout(closeForm, 2500);
+				}
+			} catch (err) {
+				document.getElementById('status-msg').innerText = "Error!";
+			} finally {
+				btn.innerText = "Send Application"; btn.disabled = false;
+			}
+		});
+		window.onclick = (e) => { if (e.target == document.getElementById('appModal')) closeForm(); }
+	</script>
+</body>
+
+</html>
